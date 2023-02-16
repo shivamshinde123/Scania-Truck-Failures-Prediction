@@ -1,0 +1,4 @@
+2023-02-16 17:00:26,188 : INFO : make_dataset.py : Loading of train data started.
+2023-02-16 17:00:35,995 : INFO : make_dataset.py : Train data loading completed and data saved to the directory Data/raw
+2023-02-16 17:00:35,995 : INFO : make_dataset.py : Loading of test data started.
+2023-02-16 17:00:40,615 : INFO : make_dataset.py : Test data loading completed and data saved to the directory Data/raw
