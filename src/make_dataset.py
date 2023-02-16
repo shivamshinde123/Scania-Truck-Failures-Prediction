@@ -11,9 +11,9 @@ logger.setLevel(logging.INFO)
 Utility().create_folder('Logs')
 params = Utility().read_params()
 
-make_dataset_path = params['logging_folder_paths']['data']
+feature_path = params['logging_folder_paths']['features']
 
-file_handler = logging.FileHandler(make_dataset_path)
+file_handler = logging.FileHandler(feature_path)
 formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(filename)s : %(message)s')
 
 file_handler.setFormatter(formatter)
