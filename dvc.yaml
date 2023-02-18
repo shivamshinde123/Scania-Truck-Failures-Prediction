@@ -1,0 +1,20 @@
+stages:
+  make_dataset:
+    cmd: python src/make_dataset.py
+    deps:
+    - src/make_dataset.py
+    params:
+    - data
+    outs:
+    - Data/raw/train.csv
+    - Data/raw/test.csv
+  preprocess_data:
+    cmd: python src/preprocess_data.py
+    deps:
+    - Data/raw/train.csv
+    - Data/raw/test.csv
+    - src/preprocess_data.py
+    params:
+    - data
+    outs:
+    - Data/processed/processed_train.csv

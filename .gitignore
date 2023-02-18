@@ -3,6 +3,8 @@
 /Logs/
 *.log
 /notebooks/
+/scania-truck/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
