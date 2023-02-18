@@ -3,8 +3,6 @@ stages:
     cmd: python src/make_dataset.py
     deps:
     - src/make_dataset.py
-    params:
-    - data
     outs:
     - Data/raw/train.csv
     - Data/raw/test.csv
@@ -14,7 +12,21 @@ stages:
     - Data/raw/train.csv
     - Data/raw/test.csv
     - src/preprocess_data.py
-    params:
-    - data
     outs:
     - Data/processed/processed_train.csv
+  create_and_evaluate_model:
+    cmd: python src/create_and_evaluate_model.py
+    deps:
+    - Data/processed/processed_train.csv
+    outs:
+    - Metrics/metrics.json
+    - Models/rfc.pkl
+  plot_metrics:
+    cmd: python src/create_viz.py
+    deps:
+    - Metrics/metrics.json
+    outs:
+    - Plots/Precision_Recall_VS_Threshold.png
+    - Plots/Precision_VS_Recall.png
+    - Plots/confusion_matrix.png
+

@@ -4,16 +4,8 @@ stages:
     cmd: python src/make_dataset.py
     deps:
     - path: src/make_dataset.py
-      md5: 78b537fc2c58835d2ffe8ecf37a5da3a
-      size: 1813
-    params:
-      params.yaml:
-        data:
-          raw_data: Data/raw
-          processed_data: Data/processed
-          data_url_base: https://drive.google.com/uc?id=
-          train_data_url: https://drive.google.com/file/d/1UiFmiaLmD4CKbXh9xWqiUCi-5Vq6ce3_/view?usp=sharing
-          test_data_url: https://drive.google.com/file/d/1Q-YuLzD9M4d7cIcD48LzOJubSY9Poi5A/view?usp=sharing
+      md5: 0021bdebe35ffd163984fb67e76dfe0a
+      size: 1827
     outs:
     - path: Data/raw/test.csv
       md5: 2441e81e0da0c70d9268d56997de432c
@@ -31,17 +23,9 @@ stages:
       md5: bd69c84dc4852bfe3c144e76383b27d8
       size: 44607983
     - path: src/preprocess_data.py
-      md5: fb658b1429a2040d80a73699ad9dcbcb
-      size: 5769
-    params:
-      params.yaml:
-        data:
-          raw_data: Data/raw
-          processed_data: Data/processed
-          data_url_base: https://drive.google.com/uc?id=
-          train_data_url: https://drive.google.com/file/d/1UiFmiaLmD4CKbXh9xWqiUCi-5Vq6ce3_/view?usp=sharing
-          test_data_url: https://drive.google.com/file/d/1Q-YuLzD9M4d7cIcD48LzOJubSY9Poi5A/view?usp=sharing
+      md5: 7bee9ca970bbf30a4fa1edb313ebf975
+      size: 6069
     outs:
     - path: Data/processed/processed_train.csv
-      md5: a20aaaa17655d62f703ddc81e8ccd8c6
-      size: 133712267
+      md5: 7b3e6e6b07dd3600e6d021e916f0fa2d
+      size: 133592267
