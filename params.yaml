@@ -1,5 +1,7 @@
 base:
-  random_state:23
+  random_state: 23
+  target_col_name: class
+  
 
 
 logging_folder_paths:
@@ -7,3 +9,16 @@ logging_folder_paths:
   features: Logs/preprocess_data.log
   model_creation: Logs/model_creation.log
   model_evaluation: Logs/model_evaluation.log
+
+
+data:
+  raw_data: Data/raw
+  processed_data: Data/processed
+  data_url_base: https://drive.google.com/uc?id=
+  train_data_url: https://drive.google.com/file/d/1UiFmiaLmD4CKbXh9xWqiUCi-5Vq6ce3_/view?usp=sharing
+  test_data_url: https://drive.google.com/file/d/1Q-YuLzD9M4d7cIcD48LzOJubSY9Poi5A/view?usp=sharing
+
+model:
+  preprocess_pipe_folderpath: Preprocessing_utilities
+  preprocess_pipe_filename: preprocess_pipe.pkl
+
