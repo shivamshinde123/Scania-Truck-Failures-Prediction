@@ -1,15 +1,13 @@
 base:
   random_state: 23
   target_col_name: class
-  
-
+  n_jobs: -1
+  split_ratio: 0.1
 
 logging_folder_paths:
   data: Logs/make_dataset.log
   features: Logs/preprocess_data.log
   model_creation: Logs/model_creation.log
-  model_evaluation: Logs/model_evaluation.log
-
 
 data:
   raw_data: Data/raw
@@ -21,4 +19,22 @@ data:
 model:
   preprocess_pipe_folderpath: Preprocessing_utilities
   preprocess_pipe_filename: preprocess_pipe.pkl
+  label_encoder_filename: label_encoder.pkl
+  rfc:
+    max_depth: 3
+    max_features: 130
+    min_samples_split: 2
+    min_samples_leaf: 1
+  model_foldername: Models
+  model_name: rfc.pkl
 
+metrics_path:
+  metrics_folder: Metrics
+  metrics_file: metrics.json
+  clf_report_filename: classification_report.csv
+
+plots:
+  plots_folder: Plots
+  pr_thr_name: Precision_Recall_VS_Threshold.png
+  pr_name: Precision_VS_Recall.png
+  cm_name: confusion_matrix.png
