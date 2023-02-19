@@ -4,7 +4,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 
-import joblib
+import dill
 import logging
 import os
 import pandas as pd
@@ -150,7 +150,9 @@ class Preprocess:
 
         preprocess_pipe_path = os.path.join(
             preprocess_pipe_folderpath, preprocess_pipe_filename)
-        joblib.dump(num_pipe, open(preprocess_pipe_path, 'wb'))
+        
+        with open(preprocess_pipe_path, 'wb') as f:
+            dill.dump(num_pipe, f)
 
         logger.info(
             'Saved the fitted preprocess transformer in the python pickle file.')
@@ -159,7 +161,9 @@ class Preprocess:
 
         le_file_path = os.path.join(
             preprocess_pipe_folderpath, label_encoder_filename)
-        joblib.dump(le, open(le_file_path, 'wb'))
+
+        with open(le_file_path, 'wb') as f:
+            dill.dump(le, f)
 
         logger.info(
             'Saved the fitted label encoder transformer in the python pickle file.')
