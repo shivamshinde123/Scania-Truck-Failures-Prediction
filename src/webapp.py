@@ -28,6 +28,17 @@ class Webapp:
         pass
 
     def webapp(self):
+        """This method is used to create streamlit webapp.
+
+        Parameters
+        -----------
+
+        None
+
+        Returns
+        --------
+        None
+        """
 
         st.set_page_config(
             page_title='Scania Truck Failure Prediction',

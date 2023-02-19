@@ -41,6 +41,7 @@ class Utility:
         """
 
         try:
+            ## Reading params yaml file
             with open(self.params_path, 'r') as params_file:
                 params = yaml.safe_load(params_file)
 
