@@ -34,154 +34,219 @@ class CreateModel:
         pass
 
     def plot_precision_recall_vs_threshold(self, precisions, recalls, thresholds):
-        plt.figure(figsize=(12, 8))
-        sns.set_style('darkgrid')
-        plt.plot(thresholds, precisions[:-1], 'b', label="Precision")
-        plt.plot(thresholds, recalls[:-1], 'g', label="Recall")
-        plt.axhline(y=0.95, label="high recall: 0.95",
-                    color='r', linestyle="--")
-        plt.legend(loc='best')
-        plt.xlabel('Threshold')
+        """This method is used to create a graph between precisions, recalls and the thresholds.
 
-        plots_folder = params['plots']['plots_folder']
-        pr_thr_name = params['plots']['pr_thr_name']
+        Parameters
+        -----------
 
-        Utility().create_folder(plots_folder)
-        plt.savefig(os.path.join(plots_folder, pr_thr_name))
+        precisions: precisions
+        recalls: recalls
+        thresholds: thresholds
+
+        Returns
+        --------
+        None
+        """
+        try:
+             plt.figure(figsize=(12, 8))
+            sns.set_style('darkgrid')
+            plt.plot(thresholds, precisions[:-1], 'b', label="Precision")
+            plt.plot(thresholds, recalls[:-1], 'g', label="Recall")
+            plt.axhline(y=0.95, label="high recall: 0.95",
+                        color='r', linestyle="--")
+            plt.legend(loc='best')
+            plt.xlabel('Threshold')
+
+            plots_folder = params['plots']['plots_folder']
+            pr_thr_name = params['plots']['pr_thr_name']
+
+            Utility().create_folder(plots_folder)
+            plt.savefig(os.path.join(plots_folder, pr_thr_name))
+
+        except Exception as e:
+            raise e
 
     def plot_precision_vs_recall(self, precisions, recalls):
-        plt.figure(figsize=(12, 8))
-        sns.set_style('darkgrid')
-        plt.plot(recalls, precisions)
-        plt.xlabel("Recall")
-        plt.ylabel("Precision")
+        """This method is used to create a plot between precision and recall.
 
-        plots_folder = params['plots']['plots_folder']
-        pr_name = params['plots']['pr_name']
+        Parameters
+        -----------
 
-        Utility().create_folder(plots_folder)
-        plt.savefig(os.path.join(plots_folder, pr_name))
+        precisions: precisions
+        recalls: recalls
+
+        Returns
+        --------
+        None
+        """
+        try:
+            plt.figure(figsize=(12, 8))
+            sns.set_style('darkgrid')
+            plt.plot(recalls, precisions)
+            plt.xlabel("Recall")
+            plt.ylabel("Precision")
+
+            plots_folder = params['plots']['plots_folder']
+            pr_name = params['plots']['pr_name']
+
+            Utility().create_folder(plots_folder)
+            plt.savefig(os.path.join(plots_folder, pr_name))
+        
+        except Exception as e:
+            raise e
 
     def plot_confusion_matrix(self, confusion_matrix):
-        ax = plt.subplot()
-        sns.set_style('darkgrid')
-        sns.heatmap(confusion_matrix/np.sum(confusion_matrix),
-                    annot=True, fmt='.2%', ax=ax, cmap='Blues')
+        """This method is used to plot a confusion matrix in heatmap form.
 
-        # labels, title and ticks
-        ax.set_xlabel('Predicted labels')
-        ax.set_ylabel('True labels')
-        ax.set_title('Confusion Matrix')
+        Parameters
+        -----------
 
-        plots_folder = params['plots']['plots_folder']
-        cm_name = params['plots']['cm_name']
+        confusion_matrix: Confusion_matrix array
 
-        Utility().create_folder(plots_folder)
-        plt.savefig(os.path.join(plots_folder, cm_name))
+        Returns
+        --------
+        None
+        """
+        try:
+            ax = plt.subplot()
+            sns.set_style('darkgrid')
+            sns.heatmap(confusion_matrix/np.sum(confusion_matrix),
+                        annot=True, fmt='.2%', ax=ax, cmap='Blues')
+
+            # labels, title and ticks
+            ax.set_xlabel('Predicted labels')
+            ax.set_ylabel('True labels')
+            ax.set_title('Confusion Matrix')
+
+            plots_folder = params['plots']['plots_folder']
+            cm_name = params['plots']['cm_name']
+
+            Utility().create_folder(plots_folder)
+            plt.savefig(os.path.join(plots_folder, cm_name))
+        
+        except Exception as e:
+            raise e
 
     def make_model(self):
+        """This method is used create the model, fit the model, evaluate the model and for plotting the evaluations
 
-        logger.info('Model creation step started.')
-        # STAGE 1: Loading preprocessed data
-        data_folder = params['data']['processed_data']
-        data = pd.read_csv(os.path.join(data_folder, 'processed_train.csv'))
-        logger.info('Processed data loaded.')
+        Parameters
+        -----------
 
-        # STAGE 2: Splitting the data into train data and validation data
-        X = data.drop(columns=['class'], axis=1)
-        y = data['class']
-        logger.info(
-            'Processed data splitted into independent features and dependent features')
+        None
 
-        random_state = params['base']['random_state']
+        Returns
+        --------
+        None
+        """
 
-        split_ratio = params['base']['split_ratio']
-        X_train, X_val, y_train, y_val = train_test_split(
-            X, y, random_state=random_state, test_size=split_ratio, stratify=y)
+        try:
+            logger.info('Model creation step started.')
 
-        logger.info(
-            'Processed data splitted into the data for training and validation.')
+            # STAGE 1: Loading preprocessed data
+            data_folder = params['data']['processed_data']
+            data = pd.read_csv(os.path.join(data_folder, 'processed_train.csv'))
+            logger.info('Processed data loaded.')
 
-        # STAGE 3: Creating a model
-        max_depth = params['model']['rfc']['max_depth']
-        max_features = params['model']['rfc']['max_features']
-        min_samples_split = params['model']['rfc']['min_samples_split']
-        min_samples_leaf = params['model']['rfc']['min_samples_leaf']
-        n_jobs = params['base']['n_jobs']
+            # STAGE 2: Splitting the data into train data and validation data
+            X = data.drop(columns=['class'], axis=1)
+            y = data['class']
+            logger.info(
+                'Processed data splitted into independent features and dependent features')
 
-        rfc = RandomForestClassifier(max_depth=max_depth, max_features=max_features,
-                                     min_samples_split=min_samples_split, min_samples_leaf=min_samples_leaf,
-                                     n_jobs=n_jobs, random_state=random_state)
+            random_state = params['base']['random_state']
 
-        logger.info('Created a model object.')
+            split_ratio = params['base']['split_ratio']
+            X_train, X_val, y_train, y_val = train_test_split(
+                X, y, random_state=random_state, test_size=split_ratio, stratify=y)
 
-        # STAGE 4: Training a model
-        model = rfc.fit(X_train, y_train)
-        logger.info(
-            'Model successfully trained on the processed training data.')
+            logger.info(
+                'Processed data splitted into the data for training and validation.')
 
-        # STAGE 5: Making predictions
-        y_pred = model.predict(X_val)
-        y_proba = model.predict_proba(X_val)
-        logger.info('Predictions made using the trained model.')
+            # STAGE 3: Creating a model
+            max_depth = params['model']['rfc']['max_depth']
+            max_features = params['model']['rfc']['max_features']
+            min_samples_split = params['model']['rfc']['min_samples_split']
+            min_samples_leaf = params['model']['rfc']['min_samples_leaf']
+            n_jobs = params['base']['n_jobs']
 
-        # STAGE 6: Finding different metrics
-        positive_decision_score = y_proba[:, 1]
+            rfc = RandomForestClassifier(max_depth=max_depth, max_features=max_features,
+                                        min_samples_split=min_samples_split, min_samples_leaf=min_samples_leaf,
+                                        n_jobs=n_jobs, random_state=random_state)
 
-        precisions, recalls, thresholds = precision_recall_curve(
-            y_val, positive_decision_score)
+            logger.info('Created a model object.')
 
-        cm = confusion_matrix(
-            y_val, y_pred, normalize='all', labels=model.classes_)
+            # STAGE 4: Training a model
+            model = rfc.fit(X_train, y_train)
+            logger.info(
+                'Model successfully trained on the processed training data.')
 
-        auc_roc_scr = roc_auc_score(y_val, positive_decision_score)
-        precision = precision_score(y_val, y_pred)
-        recall = recall_score(y_val, y_pred)
+            # STAGE 5: Making predictions
+            y_pred = model.predict(X_val)
+            y_proba = model.predict_proba(X_val)
+            logger.info('Predictions made using the trained model.')
 
-        clf_report = classification_report(y_val, y_pred, output_dict=True)
-        clf_report = pd.DataFrame(clf_report).transpose()
+            # STAGE 6: Finding different metrics
+            positive_decision_score = y_proba[:, 1]
 
-        logger.info('Different metrics were calculated using trained model.')
-        
-        # STAGE 7: Saving the trained model as python pickle file
-        model_foldername = params['model']['model_foldername']
-        model_name = params['model']['model_name']
+            precisions, recalls, thresholds = precision_recall_curve(
+                y_val, positive_decision_score)
 
-        Utility().create_folder(model_foldername)
+            cm = confusion_matrix(
+                y_val, y_pred, normalize='all', labels=model.classes_)
 
-        with open(os.path.join(model_foldername, model_name), 'wb') as f:
-            dill.dump(model, f)
+            ## Finding roc_auc_score, precision, recall, classification_report
+            auc_roc_scr = roc_auc_score(y_val, positive_decision_score)
+            precision = precision_score(y_val, y_pred)
+            recall = recall_score(y_val, y_pred)
 
-        logger.info('Trained model saved into python pickle file.')
+            clf_report = classification_report(y_val, y_pred, output_dict=True)
+            clf_report = pd.DataFrame(clf_report).transpose()
 
-        # STAGE 8: Saving the calculated metrics
-        metrics_folder = params['metrics_path']['metrics_folder']
-        metrics_file = params['metrics_path']['metrics_file']
-        clf_report_path = params['metrics_path']['clf_report_filename']
+            logger.info('Different metrics were calculated using trained model.')
+            
+            # STAGE 7: Saving the trained model as python pickle file
+            model_foldername = params['model']['model_foldername']
+            model_name = params['model']['model_name']
 
-        metrics = {
-            'auc_roc_score': auc_roc_scr,
-            'precision': precision,
-            'recall': recall
-        }
+            Utility().create_folder(model_foldername)
 
-        Utility().create_folder(metrics_folder)
+            with open(os.path.join(model_foldername, model_name), 'wb') as f:
+                dill.dump(model, f)
 
-        with open(os.path.join(metrics_folder, metrics_file), 'w') as f:
-            json.dump(metrics, f, indent=4)
+            logger.info('Trained model saved into python pickle file.')
 
-        clf_report.to_csv(os.path.join(metrics_folder, clf_report_path))
-        logger.info('Calculated metrics saved to the json and csv file.')
+            # STAGE 8: Saving the calculated metrics
+            metrics_folder = params['metrics_path']['metrics_folder']
+            metrics_file = params['metrics_path']['metrics_file']
+            clf_report_path = params['metrics_path']['clf_report_filename']
 
-        # STAGE 9: Plotting metrics
-        self.plot_precision_recall_vs_threshold(
-            precisions, recalls, thresholds)
-        self.plot_precision_vs_recall(precisions, recalls)
-        self.plot_confusion_matrix(cm)
+            metrics = {
+                'auc_roc_score': auc_roc_scr,
+                'precision': precision,
+                'recall': recall
+            }
 
-        logger.info(
-            'Calculated metrics plotted for better understanding of model performance.')
-        logger.info('Model creation step successfully completed.')
+            Utility().create_folder(metrics_folder)
+
+            with open(os.path.join(metrics_folder, metrics_file), 'w') as f:
+                json.dump(metrics, f, indent=4)
+
+            clf_report.to_csv(os.path.join(metrics_folder, clf_report_path))
+            logger.info('Calculated metrics saved to the json and csv file.')
+
+            # STAGE 9: Plotting metrics
+            self.plot_precision_recall_vs_threshold(
+                precisions, recalls, thresholds)
+            self.plot_precision_vs_recall(precisions, recalls)
+            self.plot_confusion_matrix(cm)
+
+            logger.info(
+                'Calculated metrics plotted for better understanding of model performance.')
+            logger.info('Model creation step successfully completed.')
+
+        except Exception as e:
+            raise e
 
 
 if __name__ == "__main__":
