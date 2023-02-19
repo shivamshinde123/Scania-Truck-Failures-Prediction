@@ -27,6 +27,7 @@ class Webapp:
     def __init__(self) -> None:
         pass
 
+    st.cache_data()
     def webapp(self):
         """This method is used to create streamlit webapp.
 
@@ -112,13 +113,20 @@ class Webapp:
                                 'ct_000', 'cu_000', 'cv_000', 'cx_000', 'cy_000', 'cz_000', 'da_000', 'db_000', 'dc_000'],
                        axis=1, inplace=True)
 
+
             preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
             preprocess_pipe_filename = params['model']['preprocess_pipe_filename']
 
-            preprocess_pipe_path = os.path.join(
-                preprocess_pipe_folderpath, preprocess_pipe_filename)
-            with open(preprocess_pipe_path, 'rb') as f:
-                preprocess_pipe = dill.load(f)
+            st.cache_data
+            def load_preprocess_pipe(preprocess_pipe_folderpath,preprocess_pipe_filename):
+                preprocess_pipe_path = os.path.join(
+                    preprocess_pipe_folderpath, preprocess_pipe_filename)
+                with open(preprocess_pipe_path, 'rb') as f:
+                    preprocess_pipe = dill.load(f)
+                
+                return preprocess_pipe
+
+            preprocess_pipe = load_preprocess_pipe(preprocess_pipe_folderpath,preprocess_pipe_filename)
 
             data_input = preprocess_pipe.transform(input)
 
@@ -127,19 +135,31 @@ class Webapp:
                 model_foldername = params['model']['model_foldername']
                 model_name = params['model']['model_name']
 
-                with open(os.path.join(model_foldername, model_name), 'rb') as f:
-                    model = dill.load(f)
+                st.cache_data
+                def load_model(model_foldername,model_name):
+                    with open(os.path.join(model_foldername, model_name), 'rb') as f:
+                        model = dill.load(f)
+                    return model
+
+                model = load_model(model_foldername,model_name)
 
                 predictions = model.predict(data_input)
 
-                preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
                 label_encoder_filename = params['model']['label_encoder_filename']
 
-                le_file_path = os.path.join(
-                    preprocess_pipe_folderpath, label_encoder_filename)
 
-                with open(le_file_path, 'rb') as f:
-                    le_transformer = dill.load(f)
+                st.cache_data
+                def load_le(preprocess_pipe_folderpath,label_encoder_filename):
+                    
+                    le_file_path = os.path.join(
+                        preprocess_pipe_folderpath, label_encoder_filename)
+
+                    with open(le_file_path, 'rb') as f:
+                        le_transformer = dill.load(f)
+
+                    return le_transformer
+
+                le_transformer = load_le(preprocess_pipe_folderpath,label_encoder_filename)
 
                 predictions = le_transformer.inverse_transform(predictions)
 
