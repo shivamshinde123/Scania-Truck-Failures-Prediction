@@ -5,4 +5,3 @@ dill
 pyyaml
 matplotlib
 seaborn
-streamlit

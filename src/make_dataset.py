@@ -38,19 +38,28 @@ class MakeDataset:
         None
         """
 
-        inital_url = params['data']['data_url_base']
+        try:
+            ## getting data url from params.yaml file
+            inital_url = params['data']['data_url_base']
 
-        url = inital_url + url.split('/')[-2]
+            url = inital_url + url.split('/')[-2]
 
-        data = pd.read_csv(url)
+            ## Reading the csv file
+            data = pd.read_csv(url)
 
-        raw_data_path = params['data']['raw_data']
+            raw_data_path = params['data']['raw_data']
 
-        Utility().create_folder('Data')
-        Utility().create_folder(os.path.join('Data', 'raw'))
+            ## Creating a Data folder to save the loaded data
+            Utility().create_folder('Data')
+            Utility().create_folder(os.path.join('Data', 'raw'))
 
-        data.to_csv(os.path.join(raw_data_path, str(
-            filename) + '.csv'), index=False)
+            ## Saving the loaded data to the Data folder
+            data.to_csv(os.path.join(raw_data_path, str(
+                filename) + '.csv'), index=False)
+            
+
+        except Exception as e:
+            raise e
 
 
 if __name__ == "__main__":

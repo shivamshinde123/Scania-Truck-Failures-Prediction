@@ -103,72 +103,94 @@ class Preprocess:
         pass
 
     def preprocss(self, X, process_data_filename):
+        """This method is used to preprocess the input data.
 
-        # STAGE 1: Removing features having more than 20% of missing values
-        logger.info('Preprocessing stage started.')
+        Parameters
+        -----------
 
-        X.drop(columns=['ab_000', 'ad_000', 'bk_000', 'bl_000', 'bm_000', 'bn_000', 'bo_000', 'bp_000', 'bq_000', 'br_000', 'cf_000', 'cg_000', 'ch_000', 'co_000', 'cr_000',
-                        'ct_000', 'cu_000', 'cv_000', 'cx_000', 'cy_000', 'cz_000', 'da_000', 'db_000', 'dc_000'],
-               axis=1, inplace=True)
+        X: Input data
+        process_data_filename: keyword used in the name of processed data file
 
-        logger.info(
-            "Columns having more than 20% of missing values removed from the data.")
+        Returns
+        --------
+        None
+        """
 
-        # STAGE 2: Creating preprocessing pipelines
-        num_pipe = Pipeline(steps=[
-            ('replace_na', replace_na_string_with_numpy_na()),
-            ('replacing_num_missing_values', SimpleImputer(
-                strategy='median', missing_values=np.nan)),
-            ('scaling', MinMaxScaler()),
-        ])
+        try:
+            # STAGE 1: Removing features having more than 20% of missing values
+            logger.info('Preprocessing stage started.')
 
-        # STAGE 3: Splitting the data into independent and dependent features
-        target_col_name = params['base']['target_col_name']
-        X, y = X.drop(target_col_name, axis=1), X[target_col_name]
-        logger.info(
-            'Splitted the input data into two parts: independent features and dependent feature.')
+            X.drop(columns=['ab_000', 'ad_000', 'bk_000', 'bl_000', 'bm_000', 'bn_000', 'bo_000', 'bp_000', 'bq_000', 'br_000', 'cf_000', 'cg_000', 'ch_000', 'co_000', 'cr_000',
+                            'ct_000', 'cu_000', 'cv_000', 'cx_000', 'cy_000', 'cz_000', 'da_000', 'db_000', 'dc_000'],
+                axis=1, inplace=True)
 
-        # STAGE 4: Preprocessing the data using created pipelines
-        processed_data = num_pipe.fit_transform(X)
-        logger.info('Missing values imputation and min-max scaling completed.')
-        processed_data = pd.DataFrame(processed_data)
-        le = LabelEncoder()
-        processed_data[target_col_name] = le.fit_transform(y)
+            logger.info(
+                "Columns having more than 20% of missing values removed from the data.")
 
-        # STAGE 5: Saving the preprocess pipelines and process_data
-        Utility().create_folder(os.path.join('Data', 'processed'))
+            # STAGE 2: Creating preprocessing pipelines
+            num_pipe = Pipeline(steps=[
+                ('replace_na', replace_na_string_with_numpy_na()),
+                ('replacing_num_missing_values', SimpleImputer(
+                    strategy='median', missing_values=np.nan)),
+                ('scaling', MinMaxScaler()),
+            ])
 
-        processed_data_path = params['data']['processed_data']
-        processed_data.to_csv(os.path.join(
-            processed_data_path, 'processed_' + str(process_data_filename) + '.csv'), index=False)
-        logger.info('Processed data saved to the directory Data/processed.')
+            # STAGE 3: Splitting the data into independent and dependent features
+            target_col_name = params['base']['target_col_name']
+            X, y = X.drop(target_col_name, axis=1), X[target_col_name]
+            logger.info(
+                'Splitted the input data into two parts: independent features and dependent feature.')
 
-        preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
-        preprocess_pipe_filename = params['model']['preprocess_pipe_filename']
+            # STAGE 4: Preprocessing the data using created pipelines
+            processed_data = num_pipe.fit_transform(X)
+            logger.info('Missing values imputation and min-max scaling completed.')
+            processed_data = pd.DataFrame(processed_data)
 
-        Utility().create_folder(preprocess_pipe_folderpath)
+            ## encoding the target column using label encoder
+            le = LabelEncoder()
+            processed_data[target_col_name] = le.fit_transform(y)
 
-        preprocess_pipe_path = os.path.join(
-            preprocess_pipe_folderpath, preprocess_pipe_filename)
+            # STAGE 5: Saving the preprocess pipelines and process_data
+            ## Creating a folder to store the processed data
+            Utility().create_folder(os.path.join('Data', 'processed'))
+
+            ## Saving the processed data
+            processed_data_path = params['data']['processed_data']
+            processed_data.to_csv(os.path.join(
+                processed_data_path, 'processed_' + str(process_data_filename) + '.csv'), index=False)
+            logger.info('Processed data saved to the directory Data/processed.')
+
+            ## Saving the preprocess pipeline
+            preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
+            preprocess_pipe_filename = params['model']['preprocess_pipe_filename']
+
+            Utility().create_folder(preprocess_pipe_folderpath)
+
+            preprocess_pipe_path = os.path.join(
+                preprocess_pipe_folderpath, preprocess_pipe_filename)
+            
+            with open(preprocess_pipe_path, 'wb') as f:
+                dill.dump(num_pipe, f)
+
+            logger.info(
+                'Saved the fitted preprocess transformer in the python pickle file.')
+
+            ## Saving the label encoder
+            label_encoder_filename = params['model']['label_encoder_filename']
+
+            le_file_path = os.path.join(
+                preprocess_pipe_folderpath, label_encoder_filename)
+
+            with open(le_file_path, 'wb') as f:
+                dill.dump(le, f)
+
+            logger.info(
+                'Saved the fitted label encoder transformer in the python pickle file.')
+
+            logger.info('Preprocessing stage completed.')
         
-        with open(preprocess_pipe_path, 'wb') as f:
-            dill.dump(num_pipe, f)
-
-        logger.info(
-            'Saved the fitted preprocess transformer in the python pickle file.')
-
-        label_encoder_filename = params['model']['label_encoder_filename']
-
-        le_file_path = os.path.join(
-            preprocess_pipe_folderpath, label_encoder_filename)
-
-        with open(le_file_path, 'wb') as f:
-            dill.dump(le, f)
-
-        logger.info(
-            'Saved the fitted label encoder transformer in the python pickle file.')
-
-        logger.info('Preprocessing stage completed.')
+        except Exception as e:
+            raise e
 
 
 if __name__ == "__main__":
