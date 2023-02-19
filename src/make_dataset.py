@@ -11,7 +11,7 @@ logger.setLevel(logging.INFO)
 Utility().create_folder('Logs')
 params = Utility().read_params()
 
-feature_path = params['logging_folder_paths']['features']
+feature_path = params['logging_folder_paths']['data']
 
 file_handler = logging.FileHandler(feature_path)
 formatter = logging.Formatter(

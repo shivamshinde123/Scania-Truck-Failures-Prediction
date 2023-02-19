@@ -2,31 +2,28 @@ stages:
   make_dataset:
     cmd: python src/make_dataset.py
     deps:
-    - src/make_dataset.py
+      - src/make_dataset.py
+      - params.yaml
     outs:
-    - Data/raw/train.csv
-    - Data/raw/test.csv
+      - Data/raw/train.csv
+      - Data/raw/test.csv
   preprocess_data:
     cmd: python src/preprocess_data.py
     deps:
-    - Data/raw/train.csv
-    - Data/raw/test.csv
-    - src/preprocess_data.py
+      - Data/raw/train.csv
+      - Data/raw/test.csv
+      - src/preprocess_data.py
+      - params.yaml
     outs:
-    - Data/processed/processed_train.csv
+      - Data/processed/processed_train.csv
   create_and_evaluate_model:
     cmd: python src/create_and_evaluate_model.py
     deps:
-    - Data/processed/processed_train.csv
+      - Data/processed/processed_train.csv
+      - params.yaml
     outs:
-    - Metrics/metrics.json
-    - Models/rfc.pkl
-  plot_metrics:
-    cmd: python src/create_viz.py
-    deps:
-    - Metrics/metrics.json
-    outs:
-    - Plots/Precision_Recall_VS_Threshold.png
-    - Plots/Precision_VS_Recall.png
-    - Plots/confusion_matrix.png
-
+      - Metrics/metrics.json
+      - Models/rfc.pkl
+      - Plots/Precision_Recall_VS_Threshold.png
+      - Plots/Precision_VS_Recall.png
+      - Plots/confusion_matrix.png

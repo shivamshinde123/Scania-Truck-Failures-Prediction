@@ -157,9 +157,10 @@ class Preprocess:
 
         label_encoder_filename = params['model']['label_encoder_filename']
 
-        le_file_path = os.path.join(preprocess_pipe_folderpath, label_encoder_filename)
+        le_file_path = os.path.join(
+            preprocess_pipe_folderpath, label_encoder_filename)
         joblib.dump(le, open(le_file_path, 'wb'))
-        
+
         logger.info(
             'Saved the fitted label encoder transformer in the python pickle file.')
 

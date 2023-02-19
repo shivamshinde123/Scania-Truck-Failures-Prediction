@@ -3,9 +3,12 @@ stages:
   make_dataset:
     cmd: python src/make_dataset.py
     deps:
+    - path: params.yaml
+      md5: 79d6978510adb83717577658a545d28d
+      size: 1142
     - path: src/make_dataset.py
-      md5: 0021bdebe35ffd163984fb67e76dfe0a
-      size: 1827
+      md5: a1eb9ced52ba923d56652932a55cd0a6
+      size: 1823
     outs:
     - path: Data/raw/test.csv
       md5: 2441e81e0da0c70d9268d56997de432c
@@ -22,6 +25,9 @@ stages:
     - path: Data/raw/train.csv
       md5: bd69c84dc4852bfe3c144e76383b27d8
       size: 44607983
+    - path: params.yaml
+      md5: 79d6978510adb83717577658a545d28d
+      size: 1142
     - path: src/preprocess_data.py
       md5: 7bee9ca970bbf30a4fa1edb313ebf975
       size: 6069
