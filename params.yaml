@@ -8,6 +8,7 @@ logging_folder_paths:
   data: Logs/make_dataset.log
   features: Logs/preprocess_data.log
   model_creation: Logs/model_creation.log
+  make_predictions: Logs/make_predictions.log
 
 data:
   raw_data: Data/raw

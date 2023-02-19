@@ -1,7 +1,7 @@
 import logging
 import os
 import json
-import joblib
+import dill
 import numpy as np
 import pickle
 from utility_function import Utility
@@ -151,7 +151,7 @@ class CreateModel:
         Utility().create_folder(model_foldername)
 
         with open(os.path.join(model_foldername, model_name), 'wb') as f:
-            pickle.dump(model, f)
+            dill.dump(model, f)
 
         logger.info('Trained model saved into python pickle file.')
 
