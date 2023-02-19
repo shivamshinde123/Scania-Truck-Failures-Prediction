@@ -48,7 +48,7 @@ class CreateModel:
         None
         """
         try:
-             plt.figure(figsize=(12, 8))
+            plt.figure(figsize=(12, 8))
             sns.set_style('darkgrid')
             plt.plot(thresholds, precisions[:-1], 'b', label="Precision")
             plt.plot(thresholds, recalls[:-1], 'g', label="Recall")
@@ -91,7 +91,7 @@ class CreateModel:
 
             Utility().create_folder(plots_folder)
             plt.savefig(os.path.join(plots_folder, pr_name))
-        
+
         except Exception as e:
             raise e
 
@@ -123,7 +123,7 @@ class CreateModel:
 
             Utility().create_folder(plots_folder)
             plt.savefig(os.path.join(plots_folder, cm_name))
-        
+
         except Exception as e:
             raise e
 
@@ -145,7 +145,8 @@ class CreateModel:
 
             # STAGE 1: Loading preprocessed data
             data_folder = params['data']['processed_data']
-            data = pd.read_csv(os.path.join(data_folder, 'processed_train.csv'))
+            data = pd.read_csv(os.path.join(
+                data_folder, 'processed_train.csv'))
             logger.info('Processed data loaded.')
 
             # STAGE 2: Splitting the data into train data and validation data
@@ -171,8 +172,8 @@ class CreateModel:
             n_jobs = params['base']['n_jobs']
 
             rfc = RandomForestClassifier(max_depth=max_depth, max_features=max_features,
-                                        min_samples_split=min_samples_split, min_samples_leaf=min_samples_leaf,
-                                        n_jobs=n_jobs, random_state=random_state)
+                                         min_samples_split=min_samples_split, min_samples_leaf=min_samples_leaf,
+                                         n_jobs=n_jobs, random_state=random_state)
 
             logger.info('Created a model object.')
 
@@ -195,7 +196,7 @@ class CreateModel:
             cm = confusion_matrix(
                 y_val, y_pred, normalize='all', labels=model.classes_)
 
-            ## Finding roc_auc_score, precision, recall, classification_report
+            # Finding roc_auc_score, precision, recall, classification_report
             auc_roc_scr = roc_auc_score(y_val, positive_decision_score)
             precision = precision_score(y_val, y_pred)
             recall = recall_score(y_val, y_pred)
@@ -203,8 +204,9 @@ class CreateModel:
             clf_report = classification_report(y_val, y_pred, output_dict=True)
             clf_report = pd.DataFrame(clf_report).transpose()
 
-            logger.info('Different metrics were calculated using trained model.')
-            
+            logger.info(
+                'Different metrics were calculated using trained model.')
+
             # STAGE 7: Saving the trained model as python pickle file
             model_foldername = params['model']['model_foldername']
             model_name = params['model']['model_name']
