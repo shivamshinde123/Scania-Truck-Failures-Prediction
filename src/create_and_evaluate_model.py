@@ -3,7 +3,6 @@ import os
 import json
 import dill
 import numpy as np
-import pickle
 from utility_function import Utility
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
