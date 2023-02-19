@@ -21,6 +21,7 @@ formatter = logging.Formatter(
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
+
 class Webapp:
 
     def __init__(self) -> None:
@@ -30,7 +31,7 @@ class Webapp:
 
         st.set_page_config(
             page_title='Scania Truck Failure Prediction',
-            page_icon = ":truck",
+            page_icon=":truck",
             layout="centered",
             initial_sidebar_state="expanded",
         )
@@ -66,16 +67,16 @@ class Webapp:
         with st.expander('Please read these instructions before uploading the csv file for prediction.'):
             st.markdown("""
             Please read the following instructions before uploading the csv file for prediction.
-            - The csv file should have following column names and should be in the same order: 
+            - The csv file should have following column names and should be in the same order:
             class,aa_000,ab_000,ac_000,ad_000,ae_000,af_000,ag_000,ag_001,ag_002,ag_003,
             ag_004,ag_005,ag_006,ag_007,ag_008,ag_009,ah_000,ai_000,
             aj_000,ak_000,al_000,am_0,an_000,ao_000,ap_000,aq_000,ar_000,
             as_000,at_000,au_000,av_000,ax_000,ay_000,ay_001,ay_002,ay_003,ay_004,
             ay_005,ay_006,ay_007,ay_008,ay_009,az_000,az_001,az_002,az_003,
             az_004,az_005,az_006,az_007,az_008,az_009,ba_000,ba_001,ba_002,ba_003,
-            ba_004,ba_005,ba_006,ba_007,ba_008,ba_009,bb_000,bc_000,bd_000, 
+            ba_004,ba_005,ba_006,ba_007,ba_008,ba_009,bb_000,bc_000,bd_000,
             be_000,bf_000,bg_000,bh_000,bi_000,bj_000,bk_000,bl_000,bm_000,bn_000,
-            bo_000,bp_000,bq_000,br_000,bs_000,bt_000,bu_000,bv_000,bx_000, 
+            bo_000,bp_000,bq_000,br_000,bs_000,bt_000,bu_000,bv_000,bx_000,
             by_000,bz_000,ca_000,cb_000,cc_000,cd_000,ce_000,cf_000,cg_000,ch_000,ci_000,
             cj_000,ck_000,cl_000,cm_000,cn_000,cn_001,cn_002,cn_003,cn_004,
             cn_005,cn_006,cn_007,cn_008,cn_009,co_000,cp_000,cq_000,cr_000,cs_000,cs_001,cs_002,
@@ -89,15 +90,16 @@ class Webapp:
             """)
 
         st.header("Make Prediction")
-        st.markdown("Upload a csv file adhering to the above mentioned instructions for the prediction:")
+        st.markdown(
+            "Upload a csv file adhering to the above mentioned instructions for the prediction:")
         file = st.file_uploader('Upload a CSV file', type={'csv', 'txt'})
 
         if file is not None:
             input = pd.read_csv(file)
 
             input.drop(columns=['ab_000', 'ad_000', 'bk_000', 'bl_000', 'bm_000', 'bn_000', 'bo_000', 'bp_000', 'bq_000', 'br_000', 'cf_000', 'cg_000', 'ch_000', 'co_000', 'cr_000',
-                        'ct_000', 'cu_000', 'cv_000', 'cx_000', 'cy_000', 'cz_000', 'da_000', 'db_000', 'dc_000', 'class'],
-               axis=1, inplace=True)
+                                'ct_000', 'cu_000', 'cv_000', 'cx_000', 'cy_000', 'cz_000', 'da_000', 'db_000', 'dc_000'],
+                       axis=1, inplace=True)
 
             preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
             preprocess_pipe_filename = params['model']['preprocess_pipe_filename']
@@ -108,7 +110,7 @@ class Webapp:
                 preprocess_pipe = dill.load(f)
 
             data_input = preprocess_pipe.transform(input)
-        
+
         if st.button("Make Prediction"):
             with st.spinner('Please wait'):
                 model_foldername = params['model']['model_foldername']
@@ -118,6 +120,17 @@ class Webapp:
                     model = dill.load(f)
 
                 predictions = model.predict(data_input)
+
+                preprocess_pipe_folderpath = params['model']['preprocess_pipe_folderpath']
+                label_encoder_filename = params['model']['label_encoder_filename']
+
+                le_file_path = os.path.join(
+                    preprocess_pipe_folderpath, label_encoder_filename)
+
+                with open(le_file_path, 'rb') as f:
+                    le_transformer = dill.load(f)
+
+                predictions = le_transformer.inverse_transform(predictions)
 
                 @st.cache_data
                 def convert_df(df):
@@ -133,7 +146,6 @@ class Webapp:
                     mime='text/csv',
                 )
 
-        
 
 if __name__ == "__main__":
     wa = Webapp()
