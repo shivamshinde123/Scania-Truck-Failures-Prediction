@@ -75,7 +75,7 @@ Install dependencies
   pip install -r requirements.txt
 ```
 
-Load the data --> Preprocess the data --> Train the model --> Evaluate the model --> Plot the visualizations
+Load the data --> Preprocess the data --> Train the model --> Evaluate the model --> Plot the visualizations --> Testing code
 
 ```bash
   dvc repro
