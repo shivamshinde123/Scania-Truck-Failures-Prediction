@@ -7,8 +7,8 @@ stages:
       md5: 6ecd96fa4c6e0a038427368854b7800b
       size: 1175
     - path: src/make_dataset.py
-      md5: a1eb9ced52ba923d56652932a55cd0a6
-      size: 1823
+      md5: c3efca9f85c1ef781c60ea7bd8a9b5ed
+      size: 2151
     outs:
     - path: Data/raw/test.csv
       md5: 2441e81e0da0c70d9268d56997de432c
@@ -29,9 +29,36 @@ stages:
       md5: 6ecd96fa4c6e0a038427368854b7800b
       size: 1175
     - path: src/preprocess_data.py
-      md5: 2368aaec6e6a8dd16ac71ccc04f79561
-      size: 6133
+      md5: fae224f4038468dc0e5900b9d7651c7d
+      size: 6934
     outs:
     - path: Data/processed/processed_train.csv
       md5: 7b3e6e6b07dd3600e6d021e916f0fa2d
       size: 133592267
+  Testing_make_dataset_stage:
+    cmd: pytest src/test_make_dataset.py
+    deps:
+    - path: src/make_dataset.py
+      md5: c3efca9f85c1ef781c60ea7bd8a9b5ed
+      size: 2151
+    - path: src/test_make_dataset.py
+      md5: 4cefded3c5d48bc9b1aabd8f3243c668
+      size: 525
+  Testing_preprocess_data_stage:
+    cmd: pytest src/test_preprocess_data.py
+    deps:
+    - path: src/preprocess_data.py
+      md5: fae224f4038468dc0e5900b9d7651c7d
+      size: 6934
+    - path: src/test_preprocess_data.py
+      md5: c29777e9f76f1719c7090aa0249ec117
+      size: 1333
+  Testing_model_creation_and_evaluation_stage:
+    cmd: pytest src/test_create_and_evaluate_model.py
+    deps:
+    - path: src/create_and_evaluate_model.py
+      md5: 0f42b042e72d68ef716d977feda4e5f6
+      size: 8890
+    - path: src/test_create_and_evaluate_model.py
+      md5: 0100fc5f759f4d77e4cd98f8f98ab392
+      size: 3095
