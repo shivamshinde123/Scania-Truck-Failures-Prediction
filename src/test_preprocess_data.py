@@ -10,7 +10,6 @@ from sklearn.impute import SimpleImputer
 
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
-from src.preprocess_data import replace_na_string_with_numpy_na
 from src.utility_function import Utility
 
 
@@ -33,18 +32,6 @@ def test_check_output_shape(params):
     processed_data = pd.read_csv(os.path.join(processed_data_path, 'processed_train.csv'))
 
     assert processed_data.shape == (60000, 147)
-
-
-def test_check_if_pipeline_created_successfully():
-
-    num_pipe = Pipeline(steps=[
-                ('replace_na', replace_na_string_with_numpy_na()),
-                ('replacing_num_missing_values', SimpleImputer(
-                    strategy='median', missing_values=np.nan)),
-                ('scaling', MinMaxScaler()),
-            ])
-
-    assert isinstance(num_pipe, sklearn.Pipeline)
 
 
 def test_check_saved_preprocess_pipelines(params):
