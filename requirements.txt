@@ -5,3 +5,5 @@ dill
 pyyaml
 matplotlib
 seaborn
+pytest
+dvc
