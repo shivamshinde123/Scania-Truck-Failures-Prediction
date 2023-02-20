@@ -20,11 +20,11 @@ indicates that the failure was caused by something else.
 
 # Project Demonstration
 
-Check out the project demo at https://youtu.be/HXN4PtAdVR0
+Check out the project demo at https://youtu.be/8IcTGZ6nDA0
 
 # Deployed app link
 
-Check out the deployed app at https://shivamshinde123-scania-truck-failures-predicti-srcwebapp-ywi98s.streamlit.app/
+Check out the deployed app at https://shivamshinde123-scania-truck-failures-predicti-srcwebapp-rkeg3t.streamlit.app/
 
 # Data used
 
@@ -75,7 +75,7 @@ Install dependencies
   pip install -r requirements.txt
 ```
 
-Load the data --> Preprocess the data --> Train the model --> Evaluate the model --> Plot the visualizations --> Testing code
+Load the data --> Preprocess the data --> Train the model --> Evaluate the model --> Plot the evaluations --> Testing code
 
 ```bash
   dvc repro
