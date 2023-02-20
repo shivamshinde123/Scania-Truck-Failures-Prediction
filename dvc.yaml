@@ -1,4 +1,5 @@
 stages:
+  # Data Loading Stage
   make_dataset:
     cmd: python src/make_dataset.py
     deps:
@@ -7,6 +8,13 @@ stages:
     outs:
       - Data/raw/train.csv
       - Data/raw/test.csv
+  # Testing Data Loading Stage
+  Testing_make_dataset_stage:
+    cmd: pytest src/test_make_dataset.py
+    deps:
+      - src/make_dataset.py
+      - src/test_make_dataset.py
+  # Preprocessing Data Stage
   preprocess_data:
     cmd: python src/preprocess_data.py
     deps:
@@ -16,14 +24,29 @@ stages:
       - params.yaml
     outs:
       - Data/processed/processed_train.csv
+  # Testing Data Preprocessing Stage
+  Testing_preprocess_data_stage:
+    cmd: pytest src/test_preprocess_data.py
+    deps:
+      - src/preprocess_data.py
+      - src/test_preprocess_data.py
+  # Model Creation And Evaluation Stage
   create_and_evaluate_model:
     cmd: python src/create_and_evaluate_model.py
     deps:
       - Data/processed/processed_train.csv
       - params.yaml
+    metrics:
+      - Metrics/metrics.json:
+          cache: false
     outs:
-      - Metrics/metrics.json
       - Models/rfc.pkl
       - Plots/Precision_Recall_VS_Threshold.png
       - Plots/Precision_VS_Recall.png
       - Plots/confusion_matrix.png
+  # Testing Model Creation And Evaluation Stage
+  Testing_model_creation_and_evaluation_stage:
+    cmd: pytest src/test_create_and_evaluate_model.py
+    deps:
+      - src/create_and_evaluate_model.py
+      - src/test_create_and_evaluate_model.py
