@@ -33,8 +33,7 @@ APS Failure at Scania Trucks. (2017). UCI Machine Learning Repository.
 
 # Project Flow
 
-![image](https://user-images.githubusercontent.com/54674972/220025778-6276919e-1abb-4e46-8444-4dc7a4acf17b.png)
-
+![image](https://user-images.githubusercontent.com/54674972/220174327-2f17ccfe-fad0-475f-a590-3121cca05c37.png)
 
 # Programming Languages Used
 <img src = "https://img.shields.io/badge/-Python-3776AB?style=flat&logo=Python&logoColor=white">
