@@ -2,12 +2,12 @@
 
 ![Truck gif](https://i.pinimg.com/originals/c6/c7/32/c6c7322df1086fd6b8b3a488c9107ee7.gif)
 
-![](https://img.shields.io/github/last-commit/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
-![](https://img.shields.io/github/languages/count/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
-![](https://img.shields.io/github/languages/top/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
-![](https://img.shields.io/github/repo-size/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
-![](https://img.shields.io/github/directory-file-count/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
-![](https://img.shields.io/github/license/shivamshinde123/Movie-Review-Sentiment-Analysis-using-pretrained-embeddings)
+![](https://img.shields.io/github/last-commit/shivamshinde123/Scania-Truck-Failures-Prediction)
+![](https://img.shields.io/github/languages/count/shivamshinde123/Scania-Truck-Failures-Prediction)
+![](https://img.shields.io/github/languages/top/shivamshinde123/Scania-Truck-Failures-Prediction)
+![](https://img.shields.io/github/repo-size/shivamshinde123/Scania-Truck-Failures-Prediction)
+![](https://img.shields.io/github/directory-file-count/shivamshinde123/Scania-Truck-Failures-Prediction)
+![](https://img.shields.io/github/license/shivamshinde123/Scania-Truck-Failures-Prediction)
 
 # Problem Statement:
 The Air Pressure System (APS) is a critical component of a heavy-duty vehicle that 
