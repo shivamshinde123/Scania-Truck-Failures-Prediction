@@ -40,7 +40,7 @@ APS Failure at Scania Trucks. (2017). UCI Machine Learning Repository.
 
 
 # Python Libraries and tools Used
-<img src="http://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=FFFFFF"> <img src = "https://img.shields.io/badge/-NumPy-013243?style=flat&logo=NumPy&logoColor=white"> <img src = "https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white"> <img src = "https://img.shields.io/badge/-Matplotlib-FF6666?style=flat&logoColor=white"> <img src = "https://img.shields.io/badge/-Seaborn-5A20CB?style=flat&logoColor=white"> <img src="http://img.shields.io/badge/-sklearn-F7931E?style=flat&logo=scikit-learn&logoColor=FFFFFF">  <img src = "https://img.shields.io/badge/-Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white">
+<img src="http://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=FFFFFF"> <img src = "https://img.shields.io/badge/-NumPy-013243?style=flat&logo=NumPy&logoColor=white"> <img src = "https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white"> <img src = "https://img.shields.io/badge/-Matplotlib-FF6666?style=flat&logoColor=white"> <img src = "https://img.shields.io/badge/-Seaborn-5A20CB?style=flat&logoColor=white"> <img src="http://img.shields.io/badge/-sklearn-F7931E?style=flat&logo=scikit-learn&logoColor=FFFFFF">  <img src = "https://img.shields.io/badge/-Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white">  <img src="http://img.shields.io/badge/-DVC-945DD6?style=flat&logo=DVC&logoColor=FFFFFF">
 
 ## Run Locally
 
