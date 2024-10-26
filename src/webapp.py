@@ -51,30 +51,30 @@ class Webapp:
         st.title('Scania Truck Failure Prediction')
         st.caption('A project by Shivam Shinde')
 
-        st.header('Metadata')
-        with st.expander('Open to see the problem statement'):
-            st.header('Problem Statement')
+        # st.header('Metadata')
+        # with st.expander('Open to see the problem statement'):
+        #     st.header('Problem Statement')
 
-            st.markdown("""The Air Pressure System (APS) is a critical component of a heavy-duty vehicle that
-                        uses compressed air to force a piston to provide pressure to the brake pads, slowing
-                        the vehicle down. The benefits of using an APS instead of a hydraulic system are the
-                        easy availability and long-term sustainability of natural air.
-                        """)
-            st.markdown("""This is a Binary Classification problem, in which the affirmative class indicates that the
-                        failure was caused by a certain component of the APS, while the negative class
-                        indicates that the failure was caused by something else.
-                        """)
+        #     st.markdown("""The Air Pressure System (APS) is a critical component of a heavy-duty vehicle that
+        #                 uses compressed air to force a piston to provide pressure to the brake pads, slowing
+        #                 the vehicle down. The benefits of using an APS instead of a hydraulic system are the
+        #                 easy availability and long-term sustainability of natural air.
+        #                 """)
+        #     st.markdown("""This is a Binary Classification problem, in which the affirmative class indicates that the
+        #                 failure was caused by a certain component of the APS, while the negative class
+        #                 indicates that the failure was caused by something else.
+        #                 """)
 
-        with st.expander('Open to see trained model metrics'):
-            col1, col2, col3 = st.columns(3)
-            col1.metric("ROC AUC Score", "95.19 %")
-            col2.metric("Precision", "75.75 %")
-            col3.metric("Recall", "50 %")
+        # with st.expander('Open to see trained model metrics'):
+        #     col1, col2, col3 = st.columns(3)
+        #     col1.metric("ROC AUC Score", "95.19 %")
+        #     col2.metric("Precision", "75.75 %")
+        #     col3.metric("Recall", "50 %")
 
-        with st.expander("Open to see the plots of metrics"):
-            st.image("Plots/confusion_matrix.png")
-            st.image("Plots/Precision_Recall_VS_Threshold.png")
-            st.image("Plots/Precision_VS_Recall.png")
+        # with st.expander("Open to see the plots of metrics"):
+        #     st.image("Plots/confusion_matrix.png")
+        #     st.image("Plots/Precision_Recall_VS_Threshold.png")
+        #     st.image("Plots/Precision_VS_Recall.png")
 
         with st.expander('Please read these instructions before uploading the csv file for prediction.'):
             st.markdown("""
