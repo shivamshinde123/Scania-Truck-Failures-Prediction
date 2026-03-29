@@ -9,6 +9,10 @@
 ![](https://img.shields.io/github/directory-file-count/shivamshinde123/Scania-Truck-Failures-Prediction)
 ![](https://img.shields.io/github/license/shivamshinde123/Scania-Truck-Failures-Prediction)
 
+## Detailed Documentation
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/shivamshinde123/Scania-Truck-Failures-Prediction)
+
 # Problem Statement:
 The Air Pressure System (APS) is a critical component of a heavy-duty vehicle that 
 uses compressed air to force a piston to provide pressure to the brake pads, slowing 
